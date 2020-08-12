@@ -1,0 +1,2 @@
+1. core pattern
+cat /proc/sys/kernel/core_pattern
