@@ -10,3 +10,7 @@ https://www.cnblogs.com/coderfenghc/archive/2012/06/16/CMake_ch_01.html
    service sysstat restart
 
    sar -n DEV 1 #循环一秒钟刷新一次
+
+4. 性能监控工具 dstat
+   dstat 命令是一个用来替换vmstat、iostat、netstat、nfsstat和ifstat这些命令的工具，是一个全能系统信息统计工具
+   直接使用，默认使用的参数是-cdngy，分别显示cpu、disk、net、page、system信息
