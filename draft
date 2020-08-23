@@ -1,5 +1,12 @@
 1. core pattern
 cat /proc/sys/kernel/core_pattern
 
-2.CMake manual
+2. CMake manual
 https://www.cnblogs.com/coderfenghc/archive/2012/06/16/CMake_ch_01.html
+
+3. 监测网络流量 sar
+   apt-get install sysstat
+   vim /etc/default/sysstat 修改ENABLE="false" 为ENABLE="true"
+   service sysstat restart
+
+   sar -n DEV 1 #循环一秒钟刷新一次
