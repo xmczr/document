@@ -1,0 +1,34 @@
+1. compile
+    cd /workdir/mysql8.0
+    make real_release
+    make install real_release
+
+
+2. clear env
+   cd /workdir/mysql8.0/dist/real_release
+   rm -rf data/*
+
+3. init
+   ./bin/mysqld --defaults-file=my.cnf --initialize-insecure --gdb
+   ./bin/mysqld_safe --defaults-file=my.cnf &
+
+4. authorize
+   ./bin/mysql -uroot --socket=/workdir/mysql8.0/dist/real_release/data/my.sock
+
+   CREATE USER '$username'@'%' IDENTIFIED BY '$password';
+   GRANT all ON *.* TO '$username'@'%';
+   create database $db_name;
+
+5. sysbench
+   git repo: https://github.com/akopytov/sysbench, branch: 0.5
+   compile:
+          ./autogen.sh
+          ./configure
+          make
+   run:
+      prepare:
+             ./sysbench --test=tests/db/parallel_prepare.lua --oltp_tables_count=250 --mysql-db=$DB_NAME --oltp-table-size=25000000 --mysql-user=$DB_USER --mysql-password=$DB_PWD --mysql-port=$DB_PORT --mysql-host=$DB_HOST --num-threads=60 --report-interval=1 run
+      pure write:
+             ./sysbench --test=tests/db/oltp.lua --mysql-table-engine=innodb --oltp_tables_count=$NDB_PERF_DEFAULT_TABLE_COUNT --mysql-db=$DBNAME --oltp-table-size=$NDB_PERF_DEFAULT_TABLE_SIZE --mysql-user=$DBUSER --mysql-password=$NDB_PERF_DEFAULT_PASSWORD --mysql-port=$DBPORT --mysql-host=$DBHOST --rand-type=uniform --num-threads=$CONCURRENCY --max-requests=0 --max-requests=0 --oltp_simple_ranges=0 --oltp-distinct-ranges=0 --oltp-sum-ranges=0 --oltp-order-ranges=0 --oltp-point-selects=0 --rand-seed=42 --max-time=$DURATION --oltp-read-only=off --report-interval=10 --forced-shutdown=3 --percentile=99 run
+      pure read:
+             ./sysbench --test=tests/db/oltp.lua --oltp_tables_count=$NDB_PERF_DEFAULT_TABLE_COUNT --mysql-db=$DBNAME --oltp-table-size=$NDB_PERF_DEFAULT_TABLE_SIZE --mysql-user=$DBUSER --mysql-password=$NDB_PERF_DEFAULT_PASSWORD --mysql-port=$DBPORT --mysql-host=$DBHOST --db-dirver=mysql --num-threads=$CONCURRENCY --max-requests=0 --oltp_simple_ranges=0 --oltp-distinct-ranges=0 --oltp-sum-ranges=0 --oltp-order-ranges=0 --rand-seed=42 --max-time=$DURATION --oltp-read-only=on --report-interval=10 --forced-shutdown=3 --percentile=99 run

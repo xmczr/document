@@ -31,3 +31,13 @@ https://www.cnblogs.com/coderfenghc/archive/2012/06/16/CMake_ch_01.html
    #fg 1
    /root/bin/rsync.sh
    这样，你在控制台上就只能等待这个任务完成了。 
+
+6、查看线程树
+   pstree [pid]
+
+7、查看端口是否有使用
+   lsof -i:xx
+
+8. 查看CPU占用情况
+   单个进程: top -b -n 1 -p $PID
+   单个进程中的所有线程： top -b -n 1 -Hp $PID
