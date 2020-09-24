@@ -41,3 +41,10 @@ https://www.cnblogs.com/coderfenghc/archive/2012/06/16/CMake_ch_01.html
 8. 查看CPU占用情况
    单个进程: top -b -n 1 -p $PID
    单个进程中的所有线程： top -b -n 1 -Hp $PID
+
+9. screen
+   增加一个后台窗口，可以通过前端窗口对其进行管理
+   screen -s xxx.sh   创建视窗时执行的shell脚本
+   ctrl+a+d 退出当前attach的视窗
+   screen -ls 查看视窗信息
+   screen -r xxxx  连接现有的视窗, xxxx是视窗编号，通过-ls命令查询
