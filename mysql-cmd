@@ -32,3 +32,61 @@
              ./sysbench --test=tests/db/oltp.lua --mysql-table-engine=innodb --oltp_tables_count=$NDB_PERF_DEFAULT_TABLE_COUNT --mysql-db=$DBNAME --oltp-table-size=$NDB_PERF_DEFAULT_TABLE_SIZE --mysql-user=$DBUSER --mysql-password=$NDB_PERF_DEFAULT_PASSWORD --mysql-port=$DBPORT --mysql-host=$DBHOST --rand-type=uniform --num-threads=$CONCURRENCY --max-requests=0 --max-requests=0 --oltp_simple_ranges=0 --oltp-distinct-ranges=0 --oltp-sum-ranges=0 --oltp-order-ranges=0 --oltp-point-selects=0 --rand-seed=42 --max-time=$DURATION --oltp-read-only=off --report-interval=10 --forced-shutdown=3 --percentile=99 run
       pure read:
              ./sysbench --test=tests/db/oltp.lua --oltp_tables_count=$NDB_PERF_DEFAULT_TABLE_COUNT --mysql-db=$DBNAME --oltp-table-size=$NDB_PERF_DEFAULT_TABLE_SIZE --mysql-user=$DBUSER --mysql-password=$NDB_PERF_DEFAULT_PASSWORD --mysql-port=$DBPORT --mysql-host=$DBHOST --db-dirver=mysql --num-threads=$CONCURRENCY --max-requests=0 --oltp_simple_ranges=0 --oltp-distinct-ranges=0 --oltp-sum-ranges=0 --oltp-order-ranges=0 --rand-seed=42 --max-time=$DURATION --oltp-read-only=on --report-interval=10 --forced-shutdown=3 --percentile=99 run
+
+6. 查询变量
+   show variables;
+
+   6.1 查询日志文件位置
+       show variables like 'log_error';
+       show variables like 'general_log_file';
+7. 查询所有数据库
+   show databases;
+
+8. 查询数据库的所有表
+   use database_name;
+   show tables;
+
+9. 查询表结构
+   describe table_name
+
+10. 创建数据库
+   create database database_name;
+
+11. 删除数据库
+   drop database database_name;
+
+12. 创建表
+   use database_name
+   create table table_name(<字段名1> <类型1> [字段属性1|约束1] [索引1] [注释1] [,..<字段名n> <类型n> [字段属性n|约束n] [索引n] [注释n]]);
+   例子：
+	create table student(id int primary key auto_increment, name varchar(50) not null, age int);
+
+13. 删除表
+   use database_name
+   drop table table_name
+
+14. 插入数据
+   insert into table_name values(字段1, 字段2 ... 字段n)
+
+15. 删除数据
+   delete from table_name  删除表中的全部数据
+   delete from table_name where 表达式                   delete from employee where age>35
+
+16. 查询数据
+   select * from table_name
+   select * from table_name where 表达式                  select * from employee where age>35
+
+17. 更新数据
+   update table_name set 字段1=值1, 字段2=值2 where 表达式
+
+18. 排序结果 order by
+   select * from table_name order by <字段名> [升序|降序]  默认为升序排列          select * from employee order by id desc    按照id降序排列
+
+19. 统计函数
+    max: select max(字段名) from table_name
+    min: select min(字段名) from table_name
+    avg: select avg(字段名) from table_name
+
+20. count计数
+   计算所有记录数量 select count(*) from table_name
+   计算某个字段不重复的数量 select count(distinct 字段名) from table_name
