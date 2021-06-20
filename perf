@@ -1,0 +1,11 @@
+网络，磁盘监控工具：dstat，安装方法：apt-get install dstat
+查看某个进程cpu消耗：top -b -n 1 -p $PID
+查看某个进程所有线程的cpu消耗详情： top -b -n 1 -Hp $PID
+函数堆栈热点：perf top [-g] -t $tid
+网络测试工具：netperf (apt-get install netperf)
+https://support.huaweicloud.com/ecs_faq/zh-cn_topic_0115820205.html（apt-get install libsctp1）
+网络时延测试工具：qperf 网上下载debian包，用dpkt -i xxx安装
+系统CPU占用情况：htop (apt-get install htop) atop
+系统资源的占用详情：vmstat 2  (2秒钟统计一次)
+系统CPU占用详情：mpstat -P ALL 2 （2秒钟统计一次）
+资源限制：cgroup
